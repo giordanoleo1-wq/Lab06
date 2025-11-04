@@ -1,3 +1,5 @@
+from flet.core import row
+
 from database.DB_connect import get_connection
 from model.automobile import Automobile
 from model.noleggio import Noleggio
@@ -35,8 +37,25 @@ class Autonoleggio:
             Funzione che legge tutte le automobili nel database
             :return: una lista con tutte le automobili presenti oppure None
         """
+        cnx = get_connection()
+        cursor = cnx.cursor(dictionary=False)
+        query = """SELECT * FROM automobile"""
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(Automobile(codice=row[0],
+                                     marca=row[1],
+                                     modello=row[2],
+                                     anno=row[3],
+                                     posti=row[4],)
+                          )
+        cnx.close()
+        cursor.close()
 
-        # TODO
+        return result
+
+
+
 
     def cerca_automobili_per_modello(self, modello) -> list[Automobile] | None:
         """
@@ -44,4 +63,10 @@ class Autonoleggio:
             :param modello: il modello dell'automobile
             :return: una lista con tutte le automobili di marca e modello indicato oppure None
         """
-        # TODO
+        cursor = get_connection()
+        query = """SELECT * FROM automobile"""
+        cursor.execute(query)
+        result = []
+        for auto in cursor:
+            if modello == modello.auto:
+                result.append(auto)

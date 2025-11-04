@@ -1,6 +1,7 @@
 import flet as ft
 from UI.alert import AlertManager
 
+
 '''
     VIEW:
     - Rappresenta l'interfaccia utente
@@ -63,7 +64,9 @@ class View:
         pulsante_conferma_responsabile = ft.ElevatedButton("Conferma", on_click=self.controller.conferma_responsabile)
 
         # Altri Pulsanti da implementare (es. "Mostra" e "Cerca")
-        # TODO
+        self.mostra = ft.ElevatedButton("Mostra", on_click=self.controller.mostra)
+        self.cerca = ft.ElevatedButton("Cerca", on_click=self.controller.cerca)
+
 
         # --- LAYOUT ---
         self.page.add(
@@ -82,10 +85,17 @@ class View:
             ft.Divider(),
 
             # Sezione 3
-            # TODO
+            ft.Row(spacing=20, controls= [ft.Text("Automobili", size=20), self.mostra],),
+            self.lista_auto,
+            ft.Divider(),
+
 
             # Sezione 4
-            # TODO
+            ft.Text("Cerca Automobile", size=20),
+            ft.Row(spacing=20, controls = [self.input_modello_auto, self.cerca],),
+            self.lista_auto_ricerca,
+
+
         )
 
     def cambia_tema(self, e):
