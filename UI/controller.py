@@ -46,13 +46,14 @@ class Controller:
 
     def cerca(self, e):
 
-       modello = str(self._view.input_modello_auto.value).capitalize()
-       lista = self._model.get_automobili()
+        modello = str(self._view.input_modello_auto.value).capitalize()
+        lista = self._model.get_automobili()
+        self._view.lista_auto_ricerca.controls.clear()
 
-       for auto in lista :
+        for auto in lista :
             if auto.modello == modello:
                     self._view.lista_auto_ricerca.controls.append(ft.Text(auto))
             self._view.update()
 
-       if len(self._view.lista_auto_ricerca.controls) == 0 :
-           raise Exception(self._alert.show_alert("modello non presente nel database"))
+        if len(self._view.lista_auto_ricerca.controls) == 0 :
+            raise Exception(self._view.show_alert("modello non presente nel database"))
